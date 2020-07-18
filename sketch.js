@@ -63,7 +63,8 @@ function draw() {
   Engine.update(engine);
   ellipseMode(RADIUS);
   rectMode(CENTER);
-  text("x:"+mouseX+ " y:"+mouseY,20,20); 
+  fill("yellow");
+  //text("x:"+mouseX+ " y:"+mouseY,20,20); 
   ellipse(polygon.position.x,polygon.position.y,15,15);
 
   stand.display();
