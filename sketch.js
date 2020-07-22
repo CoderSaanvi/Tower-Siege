@@ -7,13 +7,18 @@ var gameState = "onSling";
 
 var engine,world;
 var stand;
-var block1;
+var score = 0;
+var trials;
+var bg = "white";
 
 function setup() {
   createCanvas(1200,400);
 
   engine = Engine.create();
   world = engine.world;
+
+  //score = 0;
+  trials = 1;
 
   stand = new Ground(470,330,240,15);
   stand2 = new Ground(855,250,180,15);
@@ -59,16 +64,26 @@ function setup() {
 }
 
 function draw() {
-  background(0); 
+  if(bg){
+    background(bg);
+  }
+
+  //background(0); 
   Engine.update(engine);
   ellipseMode(RADIUS);
   rectMode(CENTER);
+  textSize(30);
+  text("Score: "+score,750,50);
+  console.log(score);
   fill("yellow");
+  strokeWeight(4);
   //text("x:"+mouseX+ " y:"+mouseY,20,20); 
   ellipse(polygon.position.x,polygon.position.y,15,15);
 
   stand.display();
   stand2.display();
+
+  getBackgroundImg();
 
   block1.display();
   block2.display();
@@ -97,6 +112,33 @@ function draw() {
   block24.display();
   block25.display();
 
+  block1.score();
+  block2.score();
+  block3.score();
+  block4.score();
+  block5.score();
+  block6.score();
+  block7.score();
+  block8.score();
+  block9.score();
+  block10.score();
+  block11.score();
+  block12.score();
+  block13.score();
+  block14.score();
+  block15.score();
+  block16.score();
+
+  block17.score();
+  block18.score();
+  block19.score();
+  block20.score();
+  block21.score();
+  block22.score();
+  block23.score();
+  block24.score();
+  block25.score();
+
   ground.display();
 
   SlingShot.display();
@@ -117,9 +159,27 @@ function mouseReleased(){
 }
 
 function keyPressed(){
-  if(keyCode===32){
+  if(keyCode===32 && trials<5){
       Matter.Body.setPosition(polygon,{x:150,y:115});
       SlingShot.attach(polygon);
       gameState = "onSling";
+      trials++;
+  }
+}
+
+async function getBackgroundImg(){
+  var apiCall = await fetch ("http://worldtimeapi.org/api/timezone/America/New_York");
+  var apiCallData = await apiCall.json();
+  //console.log(apiCallData);
+
+  var hour = apiCallData.datetime.slice(11,13);
+  //console.log(hour);
+
+  if(hour>=05 && hour<=17){
+      bg = "white";
+  }
+
+  else {
+      bg = "black";
   }
 }

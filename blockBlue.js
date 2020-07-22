@@ -12,11 +12,20 @@ class Block{
         this.height = height;
         World.add(world, this.body);
       }
+
+      score(){
+        if(this.visibility<0 && this.visibility>-1005){
+          score++
+        }
+      }
+
       display(){
         if(this.body.speed<3){
         var angle = this.body.angle;
         push();
         fill("lightBlue");
+        strokeWeight(10);
+        stroke("darkBlue");
         translate(this.body.position.x, this.body.position.y);
         rotate(angle);
         rectMode(CENTER);
